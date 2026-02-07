@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="it">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Regalo per la Mamma 🌸</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;800;900&family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #fdfbfd 0%, #f3e5f5 50%, #e1bee7 100%);
+            --accent: #9c27b0;
+            --accent-light: #ba68c8;
+            --text-main: #4a148c;
+            --text-muted: #7b1fa2;
+            --card-bg: rgba(255, 255, 255, 0.9);
+            --shadow: 0 15px 35px rgba(156, 39, 176, 0.2);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Moving Background Emojis */
+        .bg-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1;
+            pointer-events: none;
+        }
+        .emoji-particle {
+            position: absolute;
+            bottom: -100px;
+            opacity: 0;
+            animation: floatUp linear infinite;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.7; }
+            90% { opacity: 0.7; }
+            100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+        }
+
+        .progress-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 6px;
+            background: rgba(255,255,255,0.3); z-index: 1000;
+        }
+        .progress-bar { height: 100%; background: var(--accent); width: 11%; transition: width 0.5s ease; }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            margin-top: 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border-radius: 30px;
+            padding: 40px 25px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            display: none;
+        }
+
+        .active { display: block; animation: slideIn 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards; }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(40px) scale(0.95); }
+            to { opacity: 1; transform: translateY(0) scale(1); }
+        }
+
+        h1 { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--accent); margin-bottom: 10px; }
+        h2 { font-weight: 800; color: var(--text-muted); line-height: 1.3; font-size: 1.8rem; }
+        p { font-size: 1.15rem; line-height: 1.6; color: #444; margin: 20px 0; }
+
+        /* The BIGGER photo grid for Cats/Moto */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* MUCH LARGER */
+            gap: 25px;
+            margin-top: 30px;
+            justify-items: center;
+        }
+
+        /* Polaroid Effect */
+        .photo-frame {
+            background: white;
+            padding: 12px 12px 40px 12px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            border-radius: 5px;
+            transition: transform 0.3s ease;
+            max-width: 100%;
+        }
+        .photo-frame:nth-child(even) { transform: rotate(2deg); }
+        .photo-frame:nth-child(odd) { transform: rotate(-2deg); }
+        .photo-frame:hover { transform: rotate(0deg) scale(1.05); z-index: 10; }
+
+        .photo-frame img {
+            width: 100%;
+            height: 300px; /* Taller images */
+            object-fit: cover;
+            border: 1px solid #eee;
+            image-rendering: auto; /* Keeps them smooth */
+        }
+
+        .img-main {
+            width: 100%;
+            max-width: 550px;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 15px 0;
+        }
+
+        .btn {
+            background: linear-gradient(45deg, var(--accent-light), var(--accent));
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 800;
+            cursor: pointer;
+            margin-top: 30px;
+            box-shadow: 0 4px 15px rgba(156, 39, 176, 0.4);
+            transition: all 0.3s ease;
+        }
+        .btn:hover { transform: translateY(-3px); filter: brightness(1.1); }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .photo-grid { grid-template-columns: 1fr; }
+            .photo-frame img { height: 250px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-container" id="bg-animation"></div>
+
+    <div class="progress-container">
+        <div class="progress-bar" id="bar"></div>
+    </div>
+
+    <div class="container">
+        <!-- Slide 1 -->
+        <div class="card active">
+            <img src="2.gif" style="width:120px">
+            <h1>Per la mia Principessa &lt;3</h1>
+            <p style="font-style: italic;">~ il tuo Poopy-Cacca</p>
+            <img src="1.jpg" class="img-main">
+            <br>
+            <button class="btn" onclick="continua()">Inizia ➔</button>
+        </div>
+
+        <!-- Slide 2 -->
+        <div class="card">
+            <h2>Dopo 5 anni di scuola privata facendo informatica, non ti chiedi ogni tanto cosa so fare?</h2>
+            <img src="5.gif" width="160px">
+            <p>Perché non mostrartelo direttamente?</p>
+            <img src="6.jpg" class="img-main">
+            <br>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 3 -->
+        <div class="card">
+            <h2>Grazie di tutto</h2>
+            <img src="4.gif" width="160px">
+            <p>Grazie a te che sei riuscita a portare avanti una famiglia tutta da sola, con tre figli e zero appoggi. Grazie per la tua forza silenziosa, per i sacrifici che hai fatto senza mai lamentarti, per tutte le volte in cui hai messo da parte te stessa per dare a noi un futuro migliore.</p>
+            <img src="7.jpg" class="img-main">
+            <br>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 4 -->
+        <div class="card">
+            <h2>Se oggi siamo le persone che siamo, lo dobbiamo a te</h2>
+            <img src="f.gif" width="160px">
+            <p>Sei stata madre, padre, amica e guida, tutto nello stesso tempo. E per questo non basteranno mai abbastanza parole per dirti grazie.</p>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 5 -->
+        <div class="card">
+            <h2>E forse non lo hai ancora capito ma è proprio questo il senso del tatuaggio</h2>
+            <img src="3.jpeg" style="max-width: 350px;" class="img-main">
+            <p>"Sono il risultato dell’amore e degli sforzi di mia madre." Come sappiamo, è compito del genitore insegnare l’arabo ai propri figli, ma, come ben sappiamo, nemmeno questo è stato capace di fare. Eppure queste parole le conosco bene. Sul bicipite destro, perché sei sempre stata la mia forza.</p>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 6 -->
+        <div class="card">
+            <h2>E anche se non è sempre evidente</h2>
+            <p>Cerco sempre di aiutarti o imparare qualcosa da te Eng. Consonni. Dal cercare un nuovo doccino al sistemarti il computer, lavarti macchina (ogni tanto), metterti l'AdBlue, venire a fare la spesa con te, sistemare i pilastri della casetta ecc.</p>
+            <img src="8.jpg" class="img-main">
+            <br>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 7 (CAT GALLERY) -->
+        <div class="card">
+            <h2>E non solo hai fatto da madre a noi...</h2>
+            <p>Ma pure tutti i tuoi gattini!!! (Anche i negracci che sono scappati).</p>
+            <div class="photo-grid">
+                <div class="photo-frame"><img src="10.jpg"></div>
+                <div class="photo-frame"><img src="cart1.jpg"></div>
+                <div class="photo-frame"><img src="cat2.jpg"></div>
+                <div class="photo-frame"><img src="cat3.JPG"></div>
+                <div class="photo-frame"><img src="cat4.JPG"></div>
+                <div class="photo-frame"><img src="cat5.JPG"></div>
+                <div class="photo-frame"><img src="cat6.JPG"></div>
+                <div class="photo-frame"><img src="cat7.jpg"></div>
+                <div class="photo-frame"><img src="cat8.jpg"></div>
+                <div class="photo-frame"><img src="cat11.jpg"></div>
+            </div>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 8 (MOTO GALLERY) -->
+        <div class="card">
+            <h2>A te che ci accontenti in tutti i modi possibili</h2>
+            <img src="catt.gif" width="160px">
+            <p>Comprandoci le moto, la macchina, dandoci sempre la possibilità di andare in gita, TUTTO.</p>
+            <div class="photo-grid">
+                <div class="photo-frame"><img src="m2.JPG"></div>
+                <div class="photo-frame"><img src="m3.jpg"></div>
+                <div class="photo-frame"><img src="m4.jpg"></div>
+                <div class="photo-frame"><img src="m5.jpg"></div>
+            </div>
+            <br>
+            <button class="btn" onclick="continua()">Continua ➔</button>
+        </div>
+
+        <!-- Slide 9 -->
+        <div class="card">
+            <h2>E anche se a volte ci fai incazzare proprio tanto tanto...</h2>
+            <p style="font-size: 1.4rem; font-weight: 800; color: var(--accent);">Rimarrai sempre la nostra madre!<br>La donna a cui dobbiamo tutto ❤️</p>
+            <img src="12.jpeg" class="img-main">
+        </div>
+    </div>
+
+    <script>
+        // BACKGROUND ANIMATION
+        const bgContainer = document.getElementById('bg-animation');
+        const emojis = ['🌸', '🌺', '🐱', '🐈', '🐾', '🎂', '🎁', '🎈', '💖', '✨'];
+
+        function createEmoji() {
+            const emoji = document.createElement('div');
+            emoji.classList.add('emoji-particle');
+            emoji.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            
+            const leftPos = Math.random() * 100;
+            const duration = 6 + Math.random() * 8;
+            const size = 20 + Math.random() * 30;
+            
+            emoji.style.left = leftPos + 'vw';
+            emoji.style.fontSize = size + 'px';
+            emoji.style.animationDuration = duration + 's';
+            
+            bgContainer.appendChild(emoji);
+            setTimeout(() => { emoji.remove(); }, duration * 1000);
+        }
+        setInterval(createEmoji, 350);
+
+        // SLIDE LOGIC
+        let step = 0;
+        const slides = document.querySelectorAll('.card');
+        const bar = document.getElementById('bar');
+
+        function continua() {
+            if (step < slides.length - 1) {
+                slides[step].classList.remove('active');
+                step++;
+                slides[step].classList.add('active');
+                
+                const progress = ((step + 1) / slides.length) * 100;
+                bar.style.width = progress + '%';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        }
+    </script>
+</body>
+</html>
